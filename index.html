@@ -332,7 +332,7 @@
 
 <div class="celebrate" id="celebrate">
   <h2>बडा दशैं २०८३ को शुभकामना</h2> 
-  <p>२०८३ साल को विजया दशमीको यो पवित्र अवसरमा देश तथा विदेशमा रहनुहुने सम्पूर्ण नेपाली <br>दिदीबहिनी तथा दाजुभाइहरूमा सुख, शान्ति, समृद्धि, सुस्वास्थ्य र </br>उत्तरोत्तर प्रगतिको हार्दिक मंगलमय शुभकामना व्यक्त गर्दछौं।</p>
+  <p>विजया दशमी २०८३ साल को यो पवित्र अवसरमा देश तथा विदेशमा रहनुहुने सम्पूर्ण नेपाली <br>दाजुभाइ तथा दिदी बहिनीहरूमा सुख, शान्ति, समृद्धि, सुस्वास्थ्य र </br>उत्तरोत्तर प्रगतिको हार्दिक मंगलमय शुभकामना व्यक्त गर्दछौं।</p>
 </div>
 
 <!-- Puja thali: jamara pot + tika + diyo -->
@@ -641,6 +641,43 @@ function spawnPetal(){
 }
 setInterval(spawnPetal, 650);
 for(let i=0;i<6;i++) setTimeout(spawnPetal, i*300);
+
+/* ---------- Background Music ---------- */
+
+const music = new Audio();
+
+const songs = [
+    "audio1.mp3",
+    "audio2.mp3"
+];
+
+let currentSong = 0;
+
+function playNextSong() {
+    music.src = songs[currentSong];
+
+    music.play().catch(() => {
+        console.log("Autoplay blocked. Click anywhere to start music.");
+    });
+
+    currentSong++;
+
+    if (currentSong >= songs.length) {
+        currentSong = 0;
+    }
+}
+
+// Play next song when current song finishes
+music.addEventListener("ended", playNextSong);
+
+// Try to start automatically when page opens
+playNextSong();
+
+// If browser blocks autoplay, start on first click
+document.addEventListener("click", function startMusic() {
+    music.play().catch(() => {});
+    document.removeEventListener("click", startMusic);
+});
 </script>
 </body>
 </html>
